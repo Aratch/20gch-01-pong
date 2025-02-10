@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwj3wqpjf7a6p"]
+
+[ext_resource type="PackedScene" uid="uid://d314agckqwoeo" path="res://paddle.tscn" id="1_uhfkt"]
+[ext_resource type="PackedScene" uid="uid://p4n84krlbpj8" path="res://ball.tscn" id="2_kadcf"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7xejs"]
+distance = -650.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ywypa"]
+normal = Vector2(0, 1)
+
+[node name="Main" type="Node2D"]
+
+[node name="Paddle" parent="." instance=ExtResource("1_uhfkt")]
+position = Vector2(144, 240)
+is_player = true
+
+[node name="Paddle2" parent="." instance=ExtResource("1_uhfkt")]
+position = Vector2(976, 240)
+
+[node name="Boundaries" type="StaticBody2D" parent="."]
+
+[node name="Bottom" type="CollisionShape2D" parent="Boundaries"]
+shape = SubResource("WorldBoundaryShape2D_7xejs")
+
+[node name="Top" type="CollisionShape2D" parent="Boundaries"]
+shape = SubResource("WorldBoundaryShape2D_ywypa")
+
+[node name="Player1ScoreLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "0"
+metadata/_edit_lock_ = true
+
+[node name="Player2ScoreLabel" type="Label" parent="."]
+offset_left = 1024.0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "0"
+
+[node name="Ball" parent="." instance=ExtResource("2_kadcf")]
+position = Vector2(560, 256)
