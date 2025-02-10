@@ -6,7 +6,8 @@ var collision_shape : RectangleShape2D
 var color_rect : ColorRect
 
 const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+
+var direction : float
 
 @export var is_player : bool = false
 
@@ -20,9 +21,9 @@ func _start_game() -> void:
 		position.x = (ratio - 1) * (window_size.x / ratio)
 
 func _ready() -> void:
+	collision_shape = $CollisionShape2D.shape
+	color_rect = $ColorRect
 	if Engine.is_editor_hint():
-		collision_shape = $CollisionShape2D.shape
-		color_rect = $ColorRect
 		collision_shape.changed.connect(func ():
 			color_rect.size = collision_shape.size
 			)
@@ -44,11 +45,10 @@ func _input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
-	var direction : float
 	if is_player:
 		direction = Input.get_axis(&"move_up", &"move_down")
-	else:
-		direction = Input.get_axis(&"p2_move_up", &"p2_move_down")
+	#else:
+		#direction = Input.get_axis(&"p2_move_up", &"p2_move_down")
 	
 	if direction:
 		velocity.y = direction * SPEED

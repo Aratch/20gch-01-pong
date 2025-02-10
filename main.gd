@@ -1,5 +1,9 @@
 extends Node2D
 
+signal game_ready
+
+var ball: Ball
+
 func _restart_game() -> void:
 	if $Ball.position.x < 0:
 		$Player2ScoreLabel.add_point()
@@ -10,5 +14,7 @@ func _restart_game() -> void:
 	$Ball._start_game()
 
 func _ready() -> void:
+	ball = $Ball
 	$Ball.ball_exited.connect(_restart_game)
+	emit_signal(&"game_ready")
 	
