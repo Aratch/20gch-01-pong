@@ -5,6 +5,20 @@ extends CharacterBody2D
 var collision_shape : RectangleShape2D
 var color_rect : ColorRect
 
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+
+@export var is_player : bool = false
+
+func _start_game() -> void:
+	var window_size := DisplayServer.window_get_size()
+	position.y = window_size.y / 2
+	var ratio = 7
+	if is_player:
+		position.x = window_size.x / ratio
+	else:
+		position.x = (ratio - 1) * (window_size.x / ratio)
+
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		collision_shape = $CollisionShape2D.shape
@@ -12,11 +26,8 @@ func _ready() -> void:
 		collision_shape.changed.connect(func ():
 			color_rect.size = collision_shape.size
 			)
-
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
-
-@export var is_player : bool = false
+	else:
+		_start_game()
 
 func _input(event: InputEvent) -> void:
 	if Engine.is_editor_hint():
