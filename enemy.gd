@@ -5,6 +5,8 @@ var ball: Ball
 var game_ready := false
 var frozen := false
 
+const EPSILON = 200.0
+
 func _ready() -> void:
 	get_owner().game_ready.connect(_on_game_ready)
 	set_process_input(false)
@@ -34,9 +36,9 @@ func _physics_process(delta: float) -> void:
 	if ball and game_ready and not frozen:
 		# This adds a bit of uncertainty/jitteriness, but not enough on its own
 		var will_follow : bool = (randi() % 3 == 0)
-		if ball.position.y > position.y and will_follow:
+		if ball.position.y - position.y > -EPSILON and will_follow:
 			direction = 1.0
-		elif ball.position.y < position.y and will_follow:
+		elif ball.position.y - position.y < EPSILON and will_follow:
 			direction = -1.0
 		else:
 			direction = 0.0
