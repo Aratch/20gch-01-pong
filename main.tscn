@@ -23,6 +23,8 @@ is_player = true
 position = Vector2(976, 240)
 script = ExtResource("3_mwurp")
 
+[node name="BrainFreezeTimer" type="Timer" parent="Paddle2"]
+
 [node name="Boundaries" type="StaticBody2D" parent="."]
 
 [node name="Bottom" type="CollisionShape2D" parent="Boundaries"]
