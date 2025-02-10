@@ -1,7 +1,8 @@
 @tool
 class_name Ball extends CharacterBody2D
 
-const SPEED = 500.0
+const SPEED = 600.0
+var current_speed
 
 var collision_shape : CircleShape2D
 var ball_sprite : BallSprite
@@ -28,6 +29,7 @@ func _set_to_initial_pos() -> void:
 
 func _start_game() -> void:
 	_set_to_initial_pos()
+	current_speed = SPEED
 	velocity = START_DIRECTIONS.pick_random()
 
 func _ready() -> void:
@@ -38,17 +40,16 @@ func _ready() -> void:
 		_set_up_setters()
 	else:
 		vis_notifier.screen_exited.connect(func():
-			ball_exited.emit()
-			)
+			ball_exited.emit())
 		_start_game()
-	
 
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	var collision := move_and_collide(velocity * delta * SPEED)
+	var collision := move_and_collide(velocity * delta * current_speed)
 	if collision:
+		current_speed += 15.0
 		var normal := collision.get_normal()
 		var collider := collision.get_collider()
 		if collider:
