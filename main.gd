@@ -10,11 +10,14 @@ var ball: Ball
 
 var started := false
 
-func _start_new_round() -> void:
+func _point_and_round() -> void:
 	if $Ball.position.x < 0:
 		$Player2ScoreLabel.add_point()
 	else:
 		$Player1ScoreLabel.add_point()
+	_start_new_round()
+
+func _start_new_round() -> void:
 	$Paddle._start_game()
 	$Paddle2._start_game()
 	$Ball._start_game()
@@ -29,6 +32,12 @@ func unpause() -> void:
 	%MenuLayer.hide()
 	game_unpaused.emit()
 
+func restart() -> void:
+	$Player1ScoreLabel.reset()
+	$Player2ScoreLabel.reset()
+	unpause()
+	_start_new_round()
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"menu_esc") and started:
 		if not paused:
@@ -38,7 +47,7 @@ func _input(event: InputEvent) -> void:
 
 func _ready() -> void:
 	ball = $Ball
-	$Ball.ball_exited.connect(_start_new_round)
+	$Ball.ball_exited.connect(_point_and_round)
 	
 	game_paused.connect($Ball.pause)
 	game_paused.connect($Paddle.pause)
@@ -53,8 +62,11 @@ func _ready() -> void:
 		%MenuLayer.hide()
 		started = true
 		%StartGameButton.disabled = true
-		%ResumeButton.disabled = false)
+		%ResumeButton.disabled = false
+		%RestartGameButton.disabled = false)
 	%ResumeButton.pressed.connect(func():
 		unpause())
+	%RestartGameButton.pressed.connect(func():
+		restart())
 	%QuitButton.pressed.connect(func():
 		get_tree().quit())

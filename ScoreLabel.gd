@@ -6,5 +6,8 @@ var score : int = 0:
 		score = v
 		text = str(score)
 
+func reset() -> void:
+	score = 0
+
 func add_point() -> void:
 	score += 1
