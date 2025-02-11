@@ -28,14 +28,24 @@ func _set_to_initial_pos() -> void:
 	position.y = window_size.y / 2.0
 
 func _start_game() -> void:
+	unpause()
 	_set_to_initial_pos()
 	current_speed = SPEED
 	velocity = START_DIRECTIONS.pick_random()
+	
+func pause() -> void:
+	set_physics_process(false)
+
+func unpause() -> void:
+	set_physics_process(true)
 
 func _ready() -> void:
 	collision_shape = $CollisionShape2D.shape
 	ball_sprite = $BallSprite
 	vis_notifier = $VisibleOnScreenNotifier2D
+	
+	pause()
+	
 	if Engine.is_editor_hint():
 		_set_up_setters()
 	else:

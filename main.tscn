@@ -51,6 +51,7 @@ script = ExtResource("3_glop4")
 position = Vector2(560, 256)
 
 [node name="MenuLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
 
 [node name="MenuContainer" type="CenterContainer" parent="MenuLayer"]
 anchors_preset = 15
@@ -81,8 +82,20 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="StartGameButton" type="Button" parent="MenuLayer/MenuContainer/MenuPanel/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Start Game"
+
+[node name="Spacer6" type="Control" parent="MenuLayer/MenuContainer/MenuPanel/VBoxContainer"]
+custom_minimum_size = Vector2(500, 15)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ResumeButton" type="Button" parent="MenuLayer/MenuContainer/MenuPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Resume"
 
 [node name="Spacer3" type="Control" parent="MenuLayer/MenuContainer/MenuPanel/VBoxContainer"]
 custom_minimum_size = Vector2(500, 50)
@@ -90,6 +103,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="RestartGameButton" type="Button" parent="MenuLayer/MenuContainer/MenuPanel/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 disabled = true
 text = "Restart Game"
@@ -100,6 +114,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="QuitButton" type="Button" parent="MenuLayer/MenuContainer/MenuPanel/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Quit"
 

@@ -11,7 +11,16 @@ var direction : float
 
 @export var is_player : bool = false
 
+func pause() -> void:
+	set_process_input(false)
+	set_physics_process(false)
+
+func unpause() -> void:
+	set_process_input(true)
+	set_physics_process(true)
+
 func _start_game() -> void:
+	unpause()
 	var window_size := DisplayServer.window_get_size()
 	position.y = window_size.y / 2.0
 	var ratio = 7.0
@@ -21,6 +30,7 @@ func _start_game() -> void:
 		position.x = (ratio - 1) * (window_size.x / ratio)
 
 func _ready() -> void:
+	pause()
 	collision_shape = $CollisionShape2D.shape
 	color_rect = $ColorRect
 	if Engine.is_editor_hint():
