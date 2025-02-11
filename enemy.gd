@@ -8,7 +8,7 @@ var frozen := false
 const EPSILON = 200.0
 
 func _ready() -> void:
-	get_owner().game_ready.connect(_on_game_ready)
+#	get_owner().game_ready.connect(_on_game_ready)
 	set_process_input(false)
 	super._ready()
 
@@ -28,6 +28,7 @@ func _on_freeze_timer_timeout() -> void:
 	_start_freeze_timer()
 
 func _on_game_ready() -> void:
+	super._start_game()
 	ball = get_owner().ball
 	game_ready = true
 	_start_freeze_timer()

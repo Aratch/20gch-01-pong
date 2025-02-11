@@ -28,7 +28,10 @@ func _ready() -> void:
 			color_rect.size = collision_shape.size
 			)
 	else:
-		_start_game()
+		get_owner().game_ready.connect(_on_game_ready)
+
+func _on_game_ready() -> void:
+	_start_game()
 
 func _input(event: InputEvent) -> void:
 	if Engine.is_editor_hint():

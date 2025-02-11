@@ -41,7 +41,10 @@ func _ready() -> void:
 	else:
 		vis_notifier.screen_exited.connect(func():
 			ball_exited.emit())
-		_start_game()
+		get_owner().game_ready.connect(_on_game_ready)
+		
+func _on_game_ready() -> void:
+	_start_game()
 
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():

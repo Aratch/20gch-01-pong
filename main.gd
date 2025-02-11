@@ -16,5 +16,5 @@ func _restart_game() -> void:
 func _ready() -> void:
 	ball = $Ball
 	$Ball.ball_exited.connect(_restart_game)
-	emit_signal(&"game_ready")
+	game_ready.emit()
 	
